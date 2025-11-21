@@ -9,6 +9,14 @@ const app = express();
 
 const PORT = 3333;
 
+
+app.get("/greet", (req, res) => {
+    const { name, lastName } = req.query;
+
+    res.send(`Hello ${name + " " + lastName || "Guest"}!`)
+})
+
+
 app.get("/about", (req, res) => {
 
     console.log("About page with Express");
