@@ -8,13 +8,14 @@ import express from "express";
 const app = express();
 
 const PORT = 3333;
-
+app.use(express.static("static")); //app.use - anything that has to be done, before routing and request-process.
 
 app.get("/greet", (req, res) => {
     const { name, lastName } = req.query;
 
     res.send(`Hello ${name + " " + lastName || "Guest"}!`)
 })
+
 
 
 app.get("/about", (req, res) => {
