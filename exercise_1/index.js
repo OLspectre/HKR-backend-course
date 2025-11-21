@@ -4,13 +4,16 @@
 // const app = express();
 
 import express from "express";
+import { fileURLToPath } from "url";
+import fs from 'node:fs';
+import path from "path";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-
 const PORT = 3333;
+
 app.use(express.static("static")); //app.use - anything that has to be done, before routing and request-process.
 app.use(express.urlencoded({ extended: true }));
-
 
 app.get("/greet", (req, res) => {
     const { name, lastName } = req.query;
@@ -21,13 +24,19 @@ app.get("/greet", (req, res) => {
 app.post("/submitUser", (req, res) => {
     const { name, email } = req.body;
 
+    const data = `Timestamp: ${new Date().toISOString()}, Name: ${name}, Email: ${email} \n`;
 
-
+    fs.appendFile(path.join(__dirname, "data", "savedUsers.txt"), data, (err) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send("Server Error");
+        }
+        res.send("Data saved Successfully")
+    })
+    console.log("Data saved Successfully");
     console.log(`Submitted Name of user: ${name}`);
     console.log(`Submitted Email of user: ${email}`);
-
-    res.send(`The data was succesfully registered! Thank you ${name} for being in this test!`)
-})
+});
 
 app.get("/about", (req, res) => {
 

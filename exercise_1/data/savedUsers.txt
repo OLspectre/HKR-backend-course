@@ -1,0 +1,2 @@
+Timestamp: 2025-11-21T11:27:39.317Z, Name: Otto, Email: example@mail.com 
+Timestamp: 2025-11-21T11:28:26.766Z, Name: Sara, Email: Hungrig@hotmail.com 
